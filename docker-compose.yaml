@@ -1,0 +1,30 @@
+version: "2"
+
+services:
+
+
+# Ansible-Jenkins
+  ansible-jenkins:
+    build:
+      context: ../ansible-jenkins
+    container_name: ansible-jenkins
+    ports:
+      - 8080:8080 
+    volumes:
+      - ansible-jenkins-data:/var/jenkins_home
+    restart: always
+    networks:
+      - default_net
+    environment: 
+      - TZ=Europe/Berlin
+      #  - JENKINS_OPTS="--prefix=/jenkins" ## for use behind reverse proxy
+
+
+
+networks:
+  default_net:
+    external: true      
+
+
+volumes:
+  ansible-jenkins-data:
